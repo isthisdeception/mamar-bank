@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Withdrawal confirmed — Mamar Bank</title>
+    <style type="text/css">
+        body { margin: 0; padding: 0; background: #e8eef5; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+        .wrapper { padding: 40px 16px; }
+        .shell { max-width: 520px; margin: 0 auto; }
+        .brand { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #64748b; margin: 0 0 14px 4px; }
+        .card { background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.06); }
+        .accent { height: 5px; background: linear-gradient(90deg, #b45309, #f59e0b); }
+        .card-inner { padding: 28px 28px 32px; }
+        .title { font-size: 22px; font-weight: 700; color: #0f172a; margin: 0 0 6px; line-height: 1.25; }
+        .greeting { font-size: 15px; color: #475569; margin: 0 0 20px; line-height: 1.6; }
+        .greeting strong { color: #0f172a; font-weight: 600; }
+        .lead { font-size: 15px; color: #475569; margin: 0 0 22px; line-height: 1.65; }
+        .stat { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px 18px; margin-bottom: 10px; }
+        .stat:last-child { margin-bottom: 0; }
+        .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #64748b; margin-bottom: 4px; }
+        .stat-value { font-size: 18px; font-weight: 700; color: #0f172a; }
+        .stat-value.positive { color: #047857; }
+        .stat-value.withdraw { color: #b45309; }
+        .closing { font-size: 14px; color: #64748b; margin: 26px 0 0; line-height: 1.6; }
+        .footer-note { font-size: 12px; color: #94a3b8; text-align: center; margin: 24px 8px 0; line-height: 1.5; }
+        .badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: #eef2ff; color: #4338ca; }
+        .badge-success { background: #ecfdf5; color: #047857; }
+        .badge-wrap { margin-top: -6px; margin-bottom: 18px; }
+        .badge-wrap-loose { margin-top: 4px; margin-bottom: 0; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="shell">
+            <p class="brand">Mamar Bank</p>
+            <div class="card">
+                <div class="accent"></div>
+                <div class="card-inner">
+                    <h1 class="title">Withdrawal confirmed</h1>
+                    <p class="greeting">Hello <strong>{{ username }}</strong>,</p>
+                    <p class="lead">Your withdrawal has been completed. Here is a summary of your account.</p>
+                    <div class="stat">
+                        <div class="stat-label">Amount withdrawn</div>
+                        <div class="stat-value withdraw">{{ amount }}</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Remaining balance</div>
+                        <div class="stat-value">{{ balance }}</div>
+                    </div>
+                    <p class="closing">Thank you for banking with us.</p>
+                </div>
+            </div>
+            <p class="footer-note">This message was sent automatically. Please do not reply to this email.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Open a New Account
+            </h2>
+            <p class="mt-2 text-sm text-gray-600">
+                Join our bank today and manage your finances with ease.
+            </p>
+        </div>
+
+        <form method="post" class="space-y-8">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
+                <div class="flex">
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700">
+                            Please correct the errors below.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="bg-white shadow-sm rounded-xl p-6 border border-gray-100">
+                <h3 class="text-lg font-semibold text-indigo-600 mb-6 flex items-center">
+                    <span class="bg-indigo-100 p-2 rounded-lg mr-3">👤</span>
+                    Personal Information
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% for field in form %}
+                        {% if field.name in "username,email,first_name,last_name,birth_date,gender" %}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ field.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="bg-white shadow-sm rounded-xl p-6 border border-gray-100">
+                <h3 class="text-lg font-semibold text-emerald-600 mb-6 flex items-center">
+                    <span class="bg-emerald-100 p-2 rounded-lg mr-3">💰</span>
+                    Bank Account Details
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {% for field in form %}
+                        {% if field.name in "account_type,account_no,balance,initial_deposit_date" %}
+                        <div class="{% if field.name == 'account_no' %}md:col-span-1{% endif %}">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ field.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="bg-white shadow-sm rounded-xl p-6 border border-gray-100">
+                <h3 class="text-lg font-semibold text-blue-600 mb-6 flex items-center">
+                    <span class="bg-blue-100 p-2 rounded-lg mr-3">🏠</span>
+                    Residential Address
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% for field in form %}
+                        {% if field.name in "street_address,city,postal_code,country" %}
+                        <div class="{% if field.name == 'street_address' %}md:col-span-2{% endif %}">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ field.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="bg-white shadow-sm rounded-xl p-6 border border-gray-100">
+                <h3 class="text-lg font-semibold text-red-600 mb-6 flex items-center">
+                    <span class="bg-red-100 p-2 rounded-lg mr-3">🔒</span>
+                    Security
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% for field in form %}
+                        {% if field.name in "password1,password2" %}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ field.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end space-x-4 pt-6">
+                <a href="#" class="text-sm font-medium text-gray-600 hover:text-gray-900">
+                    Already have an account?
+                </a>
+                <button type="submit" class="inline-flex justify-center py-3 px-10 border border-transparent shadow-sm text-sm font-bold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150">
+                    Create Account
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    input, select, textarea {
+        width: 100%;
+        padding: 0.625rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        background-color: #f9fafb;
+        color: #111827;
+        font-size: 0.875rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, select:focus {
+        outline: none;
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        background-color: #fff;
+    }
+</style>
+{% endblock %}

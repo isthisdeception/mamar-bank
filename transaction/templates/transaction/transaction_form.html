@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-md mx-auto mt-10">
+    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">
+            {% if request.resolver_match.url_name == 'deposit_money' %} Deposit Money
+            {% elif request.resolver_match.url_name == 'withdraw_money' %} Withdraw Money
+            {% else %} Request a Loan {% endif %}
+        </h2>
+        <p class="text-gray-500 mb-6 text-sm">Please enter the amount below to proceed.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="mb-4">
+                <label for="id_amount" class="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">$</span>
+                    <input type="number" name="amount" step="0.01" min="0.01" required id="id_amount"
+                           value="{{ form.amount.value|default_if_none:'' }}"
+                           class="block w-full pl-8 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+                {% if form.amount.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.amount.errors.as_text }}</p>
+                {% endif %}
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="p-3 mb-4 text-sm rounded-lg {% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transform active:scale-95 transition-all">
+                Submit Transaction
+            </button>
+        </form>
+        
+        <div class="mt-4 text-center">
+            <a href="{% url 'transaction_report' %}" class="text-sm text-gray-500 hover:text-blue-600 underline">Back to Report</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

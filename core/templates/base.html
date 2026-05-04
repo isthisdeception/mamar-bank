@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mamar Bank{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
+
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between gap-3">
+                <div class="flex min-w-0 flex-1 items-center gap-3 sm:gap-6">
+                    <a href="/" class="flex-shrink-0 flex items-center min-w-0">
+                        <span class="text-xl sm:text-2xl font-black text-indigo-600 tracking-tighter truncate">Mamar<span class="text-gray-900">Bank</span></span>
+                    </a>
+                    <div class="hidden sm:flex sm:items-center sm:space-x-6 lg:space-x-8">
+                        <a href="{% url 'home' %}" class="border-transparent text-gray-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition duration-150">Home</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'transaction_report' %}" class="border-transparent text-gray-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition duration-150">Report</a>
+                            <a href="{% url 'deposit_money' %}" class="border-transparent text-gray-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition duration-150">Deposit</a>
+                            <a href="{% url 'withdraw_money' %}" class="border-transparent text-gray-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition duration-150">Withdraw</a>
+                            <a href="{% url 'loan_request' %}" class="border-transparent text-gray-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition duration-150">Loan Request</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="flex shrink-0 items-center gap-2 sm:gap-4">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}" class="text-xs sm:text-sm font-medium text-gray-700 hover:text-indigo-600 whitespace-nowrap"><span class="max-w-[5rem] truncate text-xs text-gray-600 sm:max-w-none sm:text-sm sm:text-gray-500"><span class="hidden sm:inline">Hello, </span><strong class="font-semibold text-gray-700">{{ user.username }}</strong></span></a>
+                        <form method="post" action="{% url 'logout' %}" class="hidden sm:block">
+                            {% csrf_token %}
+                            <button type="submit" class="text-sm font-medium text-gray-700 hover:text-red-600">Logout</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="text-xs sm:text-sm font-medium text-gray-700 hover:text-indigo-600 whitespace-nowrap">Login</a>
+                        <a href="{% url 'register' %}" class="inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition duration-150 shadow-sm whitespace-nowrap">
+                            <span class="sm:hidden">Register</span>
+                            <span class="hidden sm:inline">Open Account</span>
+                        </a>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                    <details class="relative sm:hidden group">
+                        <summary class="flex cursor-pointer items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" aria-label="Open menu">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </summary>
+                        <div class="absolute right-0 top-full mt-2 w-56 origin-top-right rounded-lg border border-gray-200 bg-white py-2 shadow-lg ring-1 ring-black/5">
+                            <a href="{% url 'home' %}" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-indigo-600">Home</a>
+                            <a href="#" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-indigo-600">Services1</a>
+                            <a href="#" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-indigo-600">Services2</a>
+                            <a href="#" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-indigo-600">Services3</a>
+                            <div class="my-2 border-t border-gray-100"></div>
+                            <form method="post" action="{% url 'logout' %}" class="px-4 py-2">
+                                {% csrf_token %}
+                                <button type="submit" class="w-full text-left text-sm font-medium text-red-600 hover:text-red-700">Logout</button>
+                            </form>
+                        </div>
+                    </details>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow w-full min-w-0">
+
+        {% include 'message.html' %}
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 pt-8 pb-6 sm:pt-12 sm:pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm sm:text-base text-gray-400">
+                &copy; 2026 Mamar Bank Ltd. All rights reserved.
+            </p>
+            <div class="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400">
+                <a href="#" class="hover:text-gray-500">Privacy Policy</a>
+                <a href="#" class="hover:text-gray-500">Terms of Service</a>
+                <a href="#" class="hover:text-gray-500">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
