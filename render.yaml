@@ -11,8 +11,10 @@ services:
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    # Pre-deploy (when enabled on the service). Migrations also run at start so tables exist
+    # even if this step was missing, failed once, or the service was created outside the blueprint.
     preDeployCommand: python manage.py migrate --noinput && python manage.py ensure_superuser
-    startCommand: gunicorn mamarbank.wsgi:application --bind 0.0.0.0:$PORT --workers ${WEB_CONCURRENCY:-2}
+    startCommand: python manage.py migrate --noinput && python manage.py ensure_superuser && gunicorn mamarbank.wsgi:application --bind 0.0.0.0:$PORT --workers ${WEB_CONCURRENCY:-2}
     envVars:
       - key: PYTHON_VERSION
         value: "3.12.8"
