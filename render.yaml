@@ -11,7 +11,7 @@ services:
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
-    preDeployCommand: python manage.py migrate --noinput
+    preDeployCommand: python manage.py migrate --noinput && python manage.py ensure_superuser
     startCommand: gunicorn mamarbank.wsgi:application --bind 0.0.0.0:$PORT --workers ${WEB_CONCURRENCY:-2}
     envVars:
       - key: PYTHON_VERSION
@@ -37,3 +37,10 @@ services:
       #   sync: false
       # - key: EMAIL_USE_TLS
       #   value: "True"
+      # First admin (set once in dashboard as secrets, then deploy; remove after if you prefer):
+      # - key: DJANGO_SUPERUSER_USERNAME
+      #   sync: false
+      # - key: DJANGO_SUPERUSER_EMAIL
+      #   sync: false
+      # - key: DJANGO_SUPERUSER_PASSWORD
+      #   sync: false
