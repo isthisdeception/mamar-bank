@@ -194,6 +194,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
 EMAIL_TIMEOUT = config('EMAIL_TIMEOUT', default=30, cast=int)
+EMAIL_FALLBACK_RECIPIENT = config('EMAIL_FALLBACK_RECIPIENT', default='')
 
 if EMAIL_HOST:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
