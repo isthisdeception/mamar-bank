@@ -66,6 +66,11 @@ class TransactionCreateMixin(LoginRequiredMixin, CreateView):
                 messages.success(self.request, "Loan request submitted to Admin.")
             else:
                 messages.success(self.request, "Transaction successfully submitted.")
+            if not self.request.user.email:
+                messages.warning(
+                    self.request,
+                    "No email is set on your profile, so notification email was not sent.",
+                )
             return super().form_valid(form)
 
 class DepositMoneyView(TransactionCreateMixin):

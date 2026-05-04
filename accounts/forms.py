@@ -6,6 +6,7 @@ from .constants import ACCOUNT_TYPE_CHOICES, GENDER_CHOICES
 
 # 1. Rename your class to avoid shadowing the imported UserCreationForm
 class UserRegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
     account_type = forms.ChoiceField(choices=ACCOUNT_TYPE_CHOICES)
     account_no = forms.IntegerField()
     birth_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
