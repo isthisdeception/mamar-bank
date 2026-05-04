@@ -208,3 +208,18 @@ else:
         'DEFAULT_FROM_EMAIL',
         default=EMAIL_HOST_USER or 'noreply@localhost',
     )
+
+# So Render / production logs show transaction email diagnostics (INFO).
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {'class': 'logging.StreamHandler'},
+    },
+    'loggers': {
+        'transaction': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+}

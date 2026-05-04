@@ -18,6 +18,14 @@ def send_html_email(subject, template, context, to_email):
 
     try:
         html_content = render_to_string(template, context)
+        logger.info(
+            "send_html_email: sending subject=%r to=%r backend=%s host=%r from=%r",
+            subject,
+            to_email,
+            settings.EMAIL_BACKEND,
+            getattr(settings, "EMAIL_HOST", "") or "(none — console backend prints to logs)",
+            settings.DEFAULT_FROM_EMAIL,
+        )
         email = EmailMultiAlternatives(
             subject=subject,
             body="Fallback text",
@@ -26,6 +34,12 @@ def send_html_email(subject, template, context, to_email):
         )
         email.attach_alternative(html_content, "text/html")
         email.send()
+        logger.info(
+            "send_html_email: SMTP/backend accepted message subject=%r to=%r "
+            "(check inbox and spam; console backend shows full message above in logs)",
+            subject,
+            to_email,
+        )
     except Exception:
         logger.exception(
             "send_html_email failed subject=%r to=%r host=%r",
