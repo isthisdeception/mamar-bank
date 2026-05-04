@@ -28,17 +28,20 @@ services:
         fromDatabase:
           name: mamarbank-db
           property: connectionString
-      # Set in the Render dashboard (Email tab / env groups) or uncomment and fill:
+      # SMTP (set in dashboard). For Gmail use an App Password; From must match the mailbox unless your provider allows otherwise.
       # - key: EMAIL_HOST
-      #   sync: false
+      #   value: smtp.gmail.com
       # - key: EMAIL_PORT
-      #   sync: false
+      #   value: "587"
       # - key: EMAIL_HOST_USER
       #   sync: false
       # - key: EMAIL_HOST_PASSWORD
       #   sync: false
       # - key: EMAIL_USE_TLS
       #   value: "True"
+      # - key: DEFAULT_FROM_EMAIL
+      #   sync: false
+      # Port 465 SSL: EMAIL_USE_TLS=False, EMAIL_USE_SSL=True, EMAIL_PORT=465
       # First admin (set once in dashboard as secrets, then deploy; remove after if you prefer):
       # - key: DJANGO_SUPERUSER_USERNAME
       #   sync: false
